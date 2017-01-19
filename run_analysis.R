@@ -53,3 +53,10 @@ std_dataset <- sapply(global_dataset, sd)
 
 global_dataset$Result <- factor(global_dataset$Result, levels = labels_activity$ID, labels = labels_activity$Activity)
 
+
+##          5 - From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+
+library(data.table)
+tidy_global_dataset <- data.table(global_dataset)
+tidy_global_dataset2<-tidy_global_dataset[,lapply(.SD,mean),by="Result,Volonteer"]
+write.table(tidy_global_dataset2,file="tidy_dataset.csv", row.names = FALSE, sep = "\t")
